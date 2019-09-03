@@ -51,7 +51,10 @@ ruby -v
 sqlite3 --version 
 ```
 
+To install Rails, use the `gem install` command provided by RubyGems: 
 
-
+```
+gem install rails
+```
 
 
