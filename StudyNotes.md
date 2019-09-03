@@ -57,4 +57,34 @@ To install Rails, use the `gem install` command provided by RubyGems:
 gem install rails
 ```
 
+To verify that everything is up and working we should be able to run the following: 
+
+```
+rails --version
+```
+
+Now we are ready to start creating the application. Rails comes with a number of scripts called generators that are designed to make 
+the development process easier by creating everything that is necessary to start working on a particular task. To create the new rails 
+application run: 
+
+```
+rails new grape_blog
+```
+
+Next we will install RSpec by adding `rspec-rails` into our gemfile: 
+
+```
+group :development, :test do 
+    gem 'rspec-rails', '~> 3.2' 
+end 
+```
+
+Then from the command line we run the command: 
+
+```
+rails generate rspec:install
+```
+
+
+
 
