@@ -128,4 +128,21 @@ rails generate devise user
   response and sends it to the user. 
 
 
+Next we include the `factory_girl` syntax method in our `rails_helper.rb` file in order to use the abbreviated version of user creation in 
+our RSpec: 
+
+```
+RSpec.configure do |config|
+    config.include FactoryGirl::Syntax::Methods
+```
+
+Finally we add the grape gem to our DSL (Domain Specific Language) and install it: 
+```
+gem 'grape'
+bundle
+```
+
+
+
+
 
