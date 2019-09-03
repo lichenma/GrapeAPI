@@ -1,4 +1,4 @@
-GrapeAPI 
+# GrapeAPI 
 
 An API built with Ruby (Grape) created to help me learn about working with Ruby. This project might also be 
 upgraded to include other features in the near future. 
