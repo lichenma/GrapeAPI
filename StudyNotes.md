@@ -85,6 +85,47 @@ Then from the command line we run the command:
 rails generate rspec:install
 ```
 
+We will also be using some existing open source software for our testing framework. Specifically: 
+
+- Devise - a flexible authentication solution for Rails based on Warden 
+- factory_girl_rails - provides Rails integration for factory_girl, a library for setting up Ruby objects as test data 
+
+
+First, in order to incorporate these dependencies we add the following into the gemfile: 
+```
+gem 'devise' 
+
+group :development, :test do 
+    gem 'factory_girl_rails', '~> 4.5' 
+end 
+```
+
+
+Next, we generate a user model, initialize the `devise` gem, and add it to the user model (this enables the user class to be used for 
+authentication)
+
+```
+rails g model user 
+rails generate devise:install
+rails generate devise user
+```
+
+## Understanding Rails Models, Views and Controllers 
+
+* The `browser` is the device that makes the request to an endpoint such as https://example.com/video/show/15
+* The `web server` (mongrel, WEBrick) receives the request and routes it to find out which controller to use - in this case it will be
+  the "video" controller, method "show", with the id parameter set to "15". The web server then uses the dispatcher to create a new 
+  controller, call the action and pass the parameters 
+* `Controllers` do the work of parsing user requests, data submissions, cookies, sessions and the "browser stuff". They are the managers 
+  thatt orders employees around. Ideally they give orders without knowing or caring how it gets done. In this case the show method in our 
+  video controller knows that it needs to look up a view and asks the `model` to get video 15 and eventually displays it to the user 
+* `Models` are Ruby classes. They talk to the database, store, and validate data, perform the business logic and otherwise do the heavy 
+  lifting. They are the guy in the back room crunching the numbers - in this case the model is the one that retrieves video 15 from the 
+  database 
+* `Views` are what the user sees: HTML, CSS, XML, JavaScript, JSON. They are merely puppets that reads what the controller gives them. In
+  our example the controller gives video 15 to the "show" view. The show view generates teh HTML: divs, tables, text, descriptions, footers
+* `Controllers` are the ones that return the response body and metadata to the server. The server combines the raw data into a proper HTTP
+  response and sends it to the user. 
 
 
 
