@@ -34,4 +34,24 @@ using `RSpec` - a well known testing framework for RubyOnRails. We will use this
 negative tests. 
 
 
+## Getting Started 
+
+Let's start the foundation for our REST API by creating a new Rails application. Rails is a web application development framework written 
+in the Ruby programming language. It is designed to make programming web applications easier by making assumptions about what every 
+developer needs to get started. The Rails philosophy includes two major principles: 
+
+- Don't repeat yourself 
+- Convention over configuration 
+
+
+First we need to install Rails, to do so we need two prerequisites: `Ruby` and `SQLite3`. Verify by running 
+
+```
+ruby -v 
+sqlite3 --version 
+```
+
+
+
+
 
