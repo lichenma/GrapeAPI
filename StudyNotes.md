@@ -123,7 +123,7 @@ rails generate devise user
   lifting. They are the guy in the back room crunching the numbers - in this case the model is the one that retrieves video 15 from the 
   database 
 * `Views` are what the user sees: HTML, CSS, XML, JavaScript, JSON. They are merely puppets that reads what the controller gives them. In
-  our example the controller gives video 15 to the "show" view. The show view generates teh HTML: divs, tables, text, descriptions, footers
+  our example the controller gives video 15 to the "show" view. The show view generates the HTML: divs, tables, text, descriptions, footers
 * `Controllers` are the ones that return the response body and metadata to the server. The server combines the raw data into a proper HTTP
   response and sends it to the user. 
 
@@ -146,7 +146,51 @@ bundle
 
 ## User Login Use Case And Spec 
 
+Our backend will need to support a basic login capability. We will create a skeleton for our `login_spec` assuming that a valid login 
+request consists of a registered email address and password pair: 
 
+```ruby
+require 'rails_helper' do 
+  context 'negative tests' do 
+    context 'missing params' do 
+      context 'password' do 
+      end 
+      context 'email' do 
+      end 
+    end 
+    context 'invalid params' do 
+      context 'incorrect password' do 
+      end 
+      context 'with a non-existent login' do 
+      end 
+    end 
+  end 
+  context 'positive tests' do 
+    context 'valid params' do 
+    end 
+  end 
+end 
+```
+
+If either of the parameters is missing we want the client to receive an HTTP return status code of 400 (Bad Request) along with 
+an error message of 'email is missing' or 'password is missing'. 
+
+
+We are going to create the user and the parameter hash at the beginning of the spec. We will put this code after the describe
+block: 
+
+```ruby
+describe '/api/login' do 
+  let(:email) {user.email}
+  let(:password) {user.password}
+  let!(:user) {create :user}
+  let(:original_params) {{email: email, password: password}}
+  let(:params) {original_params}
+```
+
+  
+  
+  
 
 
 
