@@ -197,6 +197,107 @@ it_behaves_like 'json result'
 it_behaves_like 'contains error msg', 'password is missing' 
 ```
 
+Instead of repeating the expectations across the 'email' and 'password' contexts, we can use the same shared examples as expectations. For this, we need to uncomment this line in our `rails_helper.rb` file: 
+
+```ruby
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
+```
+
+We then add the 3 RSpec shared examples into `spec/support/shared.rb`: 
+
+```Ruby 
+RSpec.shared_examples 'json result' do 
+  specify 'returns JSON' do 
+    api_call params 
+    expect {JSON.parse(response.body)}.not_to raise_error
+  end 
+end 
+
+RSpec.shared_examples '400' do 
+  specify 'returns 400' do 
+    api_call params 
+    expect(response.status).to eq(400)
+  end 
+end 
+
+RSpec.shared_examples 'contains error msg' do |msg|
+  specify "error msg is #{msg}" do 
+    api_call params 
+    json = JSON.parse(response.body)
+    expect(json['error_msg']).to eq(msg)
+  end 
+end 
+```
+
+These shared examples are calling the `api_call` method which we will define once in our spec (keeping with the DRY principle - No repeats). We define the method as follows: 
+
+```Ruby 
+describe '/api/login' do 
+  def api_call *params
+    post "/api/login", *params
+  end 
+```
+
+
+We also need to customize the factory for our user: 
+
+```Ruby 
+FactoryGirl.define do 
+  factory :user do 
+    password "Passw0rd" 
+    password_confirmation {|u| u.password}
+
+    sequence(:email) {|n| "test#{n}example.com"}
+  end 
+end 
+```
+
+Finally before running the specs we need to run the migrations: 
+
+```
+rake db:migrate
+```
+
+At this point the specs will still fail at this point, since we haven't yet implemented our API endpoint. 
+
+
+
+## Implementing the Login API Endpoint
+
+We begin by writing an empty skeleton for our login API `app/api/login.rb`: 
+
+```Ruby
+class Login < Grape::API
+    format :json
+    desc 'End-points for the Login'
+    namespace :login do 
+        desc 'Login via email and password'
+        params do 
+            requires :email, type: String, desc:'email'
+            requires :password, type: String, desc: 'password'
+        end 
+        post do 
+        end 
+    end 
+end 
+```
+
+Next we will implement an aggregator class which aggregates the API endpoints `app/api/api.rb`: 
+
+```Ruby 
+class API < Grape::API
+    prefix 'api'
+    mount Login 
+end 
+```
+
+Now we can mount our API in the routes: 
+
+```Ruby
+Rails.application.routes.draw do 
+  mount API => '/'
+```
+
 
 
   
