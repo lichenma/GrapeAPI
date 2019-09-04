@@ -291,12 +291,18 @@ class API < Grape::API
 end 
 ```
 
-Now we can mount our API in the routes: 
+Now we can mount our API in the routes `config/routes.rb`: 
 
 ```Ruby
 Rails.application.routes.draw do 
   mount API => '/'
 ```
+
+Now we will add the code to check for missing parameters. We add that code to `api.rb` by rescuing from `Grape::Exceptions::ValidationErrors`
+
+```Ruby
+rescue_from Grape::Exceptions::ValidationErrors do |e|
+
 
 
 
