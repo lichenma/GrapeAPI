@@ -188,6 +188,17 @@ describe '/api/login' do
   let(:params) {original_params}
 ```
 
+We can then extend the 'missing params'/'password' context as follows: 
+
+```ruby 
+let(:params) {original_params.except(:password) }
+it_behaves_like '400' 
+it_behaves_like 'json result' 
+it_behaves_like 'contains error msg', 'password is missing' 
+```
+
+
+
   
   
   
