@@ -1,6 +1,6 @@
 # GrapeAPI 
 
-An API built with Ruby (Grape) created to help me learn about working with Ruby. This project might also be 
+An API built with Ruby (Grape and Rails) created to help me learn about working with Ruby. This project might also be 
 upgraded to include other features in the near future. 
 
 
@@ -33,8 +33,7 @@ To be Updated
 
 ## Built With
 
-* [NodeJS](https://nodejs.org/en/) - Environment
-* [npm](https://www.npmjs.com/) - Package Manager
+* [Ruby on Rails](https://rubyonrails.org/) - Environment
 
 ## Acknowledgments
 
